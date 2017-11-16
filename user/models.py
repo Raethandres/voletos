@@ -1,17 +1,17 @@
 from django.db import models
 from log.models import UserModel
 
-class Voleto(object):
+class Voleto(models.Model):
 	use=models.OneToOneField(UserModel, on_delete=models.CASCADE, null=True)
 	serial=models.IntegerField()
-	fecha
+	fecha=models.DateField()
 	ubicacion=models.CharField(max_length=40)
 
-class Evento(object):
+class Evento(models.Model):
 	postion=(('V','VIP'),('A','alto'),('M','medio'),('P','platino'))
-	voletos=models.ManyToManyField(Voleto,null=True)
 	name=models.CharField(max_length=40)
 	posi=models.CharField(max_length=1,choices=postion)
+	voletos=models.ManyToManyField(Voleto,null=True)
 
 
 	
