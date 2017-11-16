@@ -68,7 +68,8 @@ def falla(request):
 	return JsonResponse({'status':True})
 
 def logup(request):
-	pass
+	if request.method=="POST":
+		user = User.objects.create_user(request.POST["name"], 'lennon@thebeatles.com', 'johnpassword')
 
 @login_required()
 @csrf_exempt

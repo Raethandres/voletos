@@ -13,6 +13,8 @@ class Evento(models.Model):
 	posi=models.CharField(max_length=1,choices=postion)
 	voletos=models.ManyToManyField(Voleto,null=True)
 
+		
+
 
 	
 		
