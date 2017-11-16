@@ -67,6 +67,9 @@ def logup(request):
 def falla(request):
 	return JsonResponse({'status':True})
 
+def logup(request):
+	pass
+
 @login_required()
 @csrf_exempt
 def logot(request):

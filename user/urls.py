@@ -1,11 +1,12 @@
 from django.conf.urls import include, url
-from . import views 
+from .views import * 
 
 urlpatterns= [
 		# url(r'^accounts/', include('django.contrib.auth.urls')),
-		url(r'^login/$', views.logi,name="login"),
-		url(r'^falla/$',views.falla,name="falla"),
-		url(r'^logout/$', views.logot,name="logout"),
+		url(r'^admin/$', admin.as_view(),name="admin"),
+		url(r'^user/$',user.as_view(),name="user"),
+		url(r'^voleto/$', views.getVoleto,name="voleto"),
+		url(r'^evento/$', views.getEvento,name="evento"),
 
 
 	]
