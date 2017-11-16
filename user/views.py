@@ -1,11 +1,16 @@
 from django.shortcuts import render
 from django.views import View
 from .models import Voleto,Evento
+from django.http import JsonResponse
 
 class admin(View):
 	
 	def get(self,request):
-		pass
+		vole=Voleto.objects.all()
+		vole.order_by('name')
+		vec=[(i.use.name,i.serial,i.fecha,i.note,i.ubicacion)for i in vole]
+		return JsonResponse({"status":True,"work":vec})
+
 
 	def post(self,request):
 		pass
