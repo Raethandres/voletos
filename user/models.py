@@ -17,7 +17,7 @@ class Evento(models.Model):
 	voleto=models.ManyToManyField(Voleto,null=True)
 
 	def __str__(self):
-		return str(self.use)
+		return str(self.name)
 
 
 	
