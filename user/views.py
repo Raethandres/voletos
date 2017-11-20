@@ -13,8 +13,8 @@ class perfil(View):
 	
 	def get(self,request):
 		use=log()
-		vec=(use.user.first_name,use.user.last_name,use.cedula,use.genero,use.direccion,use.email,use.telefono,use.user.username,use.user.password)
-		return JsonResponse({"status":True,"row":vec})
+		row=(use.user.first_name,use.user.last_name,use.cedula,use.genero,use.direccion,use.email,use.telefono,use.user.username,use.user.password)
+		return JsonResponse({"status":True,"row":row})
 	def post(self,request):
 		pass
 
@@ -31,8 +31,8 @@ class admin(View):
 
 		vole=Voleto.objects.all()
 		vole.order_by('fecha')
-		vec=[(x.use.all()[0].user.first_name,x.use.all()[0].user.last_name,x.use.all()[0].id,x.use.all()[0].tipo,x.use.all()[0].cedula,x.evento_set.all()[0].name,x.ubicacion)for x in vole]
-		return JsonResponse({"status":True,"row":vec})
+		row=[(x.use.all()[0].user.first_name,x.use.all()[0].user.last_name,x.use.all()[0].id,x.use.all()[0].tipo,x.use.all()[0].cedula,x.evento_set.all()[0].name,x.ubicacion)for x in vole]
+		return JsonResponse({"status":True,"row":row})
 
 	
 	def post(self,request):
@@ -52,8 +52,8 @@ class user(View):
 		return super(user, self).dispatch(request, *args, **kwargs)
 
 	def get(self,request):
-		vec=[(log().user.first_name,i.serial,i.fecha,i.id,i.ubicacion)for i in log().voleto_set.all()]
-		return JsonResponse({"status":True,"work":vec})
+		row=[(log().user.first_name,i.serial,i.fecha,i.id,i.ubicacion)for i in log().voleto_set.all()]
+		return JsonResponse({"status":True,"work":row})
 
 	def post(self,request):
 		pass
@@ -64,13 +64,13 @@ def getVoleto(request):
 	if request.method=="GET":
 		print(request.GET)
 		x=Voleto.objects.get(id=request.GET.get('id'))
-		vec=(x.use.all()[0].user.first_name,x.use.all()[0].user.last_name,x.use.all()[0].genero,x.use.all()[0].telefono,x.use.all()[0].email,x.use.all()[0].direccion,x.use.all()[0].cedula,x.evento_set.all()[0].name,x.ubicacion)
-		return JsonResponse({"status":True,"vec":vec})
+		row=(x.use.all()[0].user.first_name,x.use.all()[0].user.last_name,x.use.all()[0].genero,x.use.all()[0].telefono,x.use.all()[0].email,x.use.all()[0].direccion,x.use.all()[0].cedula,x.evento_set.all()[0].name,x.ubicacion)
+		return JsonResponse({"status":True,"row":row})
 
 def getEvento(request):
 	if request.method=="GET":
 		x=Evento.objects.all()
-		vec=[(i.name)for i in x]
-		return JsonResponse({"status":True,"vec":vec})
+		row=[(i.name)for i in x]
+		return JsonResponse({"status":True,"row":row})
 
 # Create your views here.
