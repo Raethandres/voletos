@@ -12,8 +12,9 @@ class perfil(View):
 		return super(perfil, self).dispatch(request, *args, **kwargs)
 	
 	def get(self,request):
-		pass
-
+		use=log()
+		vec=(use.user.first_name,use.user.last_name,use.cedula,use.genero,use.direccion,use.email,use.telefono,use.user.username,use.user.password)
+		return JsonResponse({"status":True,"row":vec})
 	def post(self,request):
 		pass
 
