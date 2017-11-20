@@ -27,7 +27,7 @@ class admin(View):
 		pass
 
 	def delete(self,request):
-		vole=Voleto.objects.get(request.DELETE["id"])
+		vole=Voleto.objects.get(id=request.DELETE["id"])
 		vole.delete()
 		return JsonResponse({"status":True})
 
@@ -51,9 +51,11 @@ class user(View):
 		
 
 def getVoleto(request):
-	vole=Voleto.objects.get(request.GET["id"])
-	vec=[(x.use.all()[0].user.first_name,x.use.all()[0].user.last_name,x.use.all()[0].sexo,x.use.all()[0].genero,x.use.all()[0].telefono,x.use.all()[0].email,x.use.all()[0].direccion,x.use.all()[0].cedula,x.evento_set.all()[0].name,x.ubicacion)for x in vole]
-	return JsonResponse({"status":True,"vec":vec})
+	if request.method=="GET":
+		print(request.GET["ff"])
+		x=Voleto.objects.get(id=request.GET["id"])
+		vec=(x.use.all()[0].user.first_name,x.use.all()[0].user.last_name,x.use.all()[0].genero,x.use.all()[0].telefono,x.use.all()[0].email,x.use.all()[0].direccion,x.use.all()[0].cedula,x.evento_set.all()[0].name,x.ubicacion)
+		return JsonResponse({"status":True,"vec":vec})
 
 def getEvento(request):
 	pass
