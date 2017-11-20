@@ -3,6 +3,8 @@ from log.models import UserModel
 
 class Voleto(models.Model):
 	postion=(('V','VIP'),('A','alto'),('M','medio'),('P','platino'))
+	
+	id=models.AutoField(primary_key=True)
 	use=models.ManyToManyField(UserModel, null=True)
 	serial=models.IntegerField()
 	fecha=models.DateField()
@@ -13,9 +15,12 @@ class Voleto(models.Model):
 		return str(self.use)
 
 class Evento(models.Model):
+	id=models.AutoField(primary_key=True)
 	name=models.CharField(max_length=40)
 	voleto=models.ManyToManyField(Voleto,null=True)
 
+	def __str__(self):
+		return str(self.name)
 		
 
 
