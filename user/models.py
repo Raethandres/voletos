@@ -6,7 +6,6 @@ class Voleto(models.Model):
 	use=models.ManyToManyField(UserModel, null=True)
 	serial=models.IntegerField()
 	fecha=models.DateField()
-	ubicacion=models.CharField(max_length=40)
 	posi=models.CharField(max_length=1,choices=postion)
 
 	def __str__(self):

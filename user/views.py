@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from log.decorator import *
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from datetime import datetime, date, time
 
 class perfil(View):
 	@method_decorator(csrf_exempt)
@@ -67,13 +68,13 @@ class user(View):
 	def post(self,request):
 		v=Voleto()
 		v.serial=request.POST["serial"]
-		# v.fecha=request.POST["fecha"]
+		v.fecha=date(2007, 12, 5)
 		v.posi=request.POST["ubicacion"]
 		v.save()
 		v.use.add(log())
 		e=Evento.objects.get(name=request.POST["evento"])
 		v.evento_set.add(e)
-		return JsonResponse({"status":True,"row":row})
+		return JsonResponse({"status":True})
 
 def getVoleto(request):
 	print("ww")
