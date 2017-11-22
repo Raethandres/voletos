@@ -1,4 +1,6 @@
 from django.contrib import admin
-from .models import UserModel
+from log.models import *
+
 
 admin.site.register(UserModel)
+# Register your models here.

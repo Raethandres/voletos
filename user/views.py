@@ -13,10 +13,24 @@ class perfil(View):
 	
 	def get(self,request):
 		use=log()
-		row=(use.user.first_name,use.user.last_name,use.cedula,use.genero,use.direccion,use.email,use.telefono,use.user.username,use.user.password)
+		print(use)
+		row=(use.user.first_name,use.user.last_name,use.cedula,use.genero,use.direccion,use.email,use.telefono,use.user.username,use.user.password,use.tipo)
 		return JsonResponse({"status":True,"row":row})
 	def post(self,request):
-		pass
+		use=log()
+		use.user.first_name=request.POST.get('nombre')
+		use.user.last_name=request.POST.get('apellido')
+		use.cedula=request.POST.get('cedula')
+		use.genero=request.POST.get('sexo')
+		use.direccion=request.POST.get('direccion')
+		use.email=request.POST.get('email')
+		use.telefono=request.POST.get('telefono')
+		use.user.username=request.POST.get('username')
+		use.user.password=request.POST.get('pass')
+		use.user.save()
+		use.save()
+		return JsonResponse({"status":True})
+
 
 class admin(View):
 	@method_decorator(csrf_exempt)
@@ -32,19 +46,13 @@ class admin(View):
 		vole=Voleto.objects.all()
 		vole.order_by('fecha')
 		row=[(x.use.all()[0].user.first_name,x.use.all()[0].user.last_name,x.use.all()[0].id,x.use.all()[0].tipo,x.use.all()[0].cedula,x.evento_set.all()[0].name,x.ubicacion)for x in vole]
-		return JsonResponse({"status":True,"row":row})
-
-	
+		return JsonResponse({"status":True,"row":row})	
 	def post(self,request):
 		if request.GET.get("delete"):
 			pass
 		eve=Evento(name=request.POST["evento"])
 		eve.save()
 		return JsonResponse({"status":True})
-
-
-
-
 
 class user(View):
 	@method_decorator(csrf_exempt)
@@ -53,11 +61,19 @@ class user(View):
 
 	def get(self,request):
 		row=[(log().user.first_name,i.serial,i.fecha,i.id,i.ubicacion)for i in log().voleto_set.all()]
-		return JsonResponse({"status":True,"work":row})
+		print(row)
+		return JsonResponse({"status":True,"row":row})
 
 	def post(self,request):
-		pass
-
+		v=Voleto()
+		v.serial=request.POST["serial"]
+		# v.fecha=request.POST["fecha"]
+		v.posi=request.POST["ubicacion"]
+		v.save()
+		v.use.add(log())
+		e=Evento.objects.get(name=request.POST["evento"])
+		v.evento_set.add(e)
+		return JsonResponse({"status":True,"row":row})
 
 def getVoleto(request):
 	print("ww")

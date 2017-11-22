@@ -12,7 +12,6 @@ class UserModel(models.Model):
 	telefono=models.IntegerField()
 
 	def __str__(self):
-		return str(self.user)
-
+		return str(self.cedula)
 
 # Create your models here.
